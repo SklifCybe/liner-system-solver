@@ -9,6 +9,7 @@ import { setSizeOfMatrix } from './modules/set-size-of-matrix.js';
 import { LinearSystemSolver } from './modules/linear-system-solver.js';
 
 const main = async () => {
+    process.stdout.write("\u001b[2J\u001b[0;0H");
     console.log('Приложение для решения систем линейных уравнений методом простых итераций.');
 
     const commandLineInterface = readline.createInterface({
