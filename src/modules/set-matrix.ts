@@ -4,6 +4,28 @@ import type { Interface } from 'readline/promises';
 
 import type { VariantUse } from '../types/variant-use.js';
 
+const diagonal = (matrix: number[][]): boolean => {
+    let flag = true;
+    const matrixSize = matrix.length;
+    let sum = 0;
+  
+    for (let i = 0; i < matrixSize; i++) {
+      sum = 0;
+      
+      for (let j = 0; j < matrixSize; j++) {
+        sum += Math.abs(matrix[i][j]);
+      }
+  
+      sum -= Math.abs(matrix[i][i]);
+  
+      if (sum > matrix[i][i]) {
+        flag = false;
+      }
+    }
+  
+    return flag;
+  };
+
 type Parameters =
     | {
           commandLineInterface: Interface;
@@ -48,6 +70,10 @@ export const setMatrix = async (params: Parameters): Promise<number[][]> => {
 
     while (singleMatrix.length) {
         matrix.push(singleMatrix.splice(0, sizeOfMatrix));
+    }
+
+    if (!diagonal(matrix)) {
+        throw new Error('Не выполняется преобладание диагоналей');
     }
 
     return matrix;
